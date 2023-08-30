@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Universe Hub</title>
+    <!-- font awesome cdn -->
+    <script src="https://kit.fontawesome.com/877142f5f8.js" crossorigin="anonymous"></script>
     <!-- tailwindCss and daisyUI cdn -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@3.6.3/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,18 +14,33 @@
     <header>
         <h1 class="text-3xl font-semibold text-center my-8">AI Universe Hub</h1>
         <div class="text-center">
-            <button class="btn btn-error text-white">Sort by date</button>
+            <button onclick="loadData()" class="btn btn-error text-white">Sort by date</button>
         </div>
     </header>
     <main>
         <section>
+            <!-- loading spinner -->
+            <div id="loading-spinner" class="text-center my-36 hidden">
+                <span class="loading loading-spinner loading-lg"></span>
+            </div>
             <!-- cards container -->
-            <div>
+            <div id="cards-container" class="max-w-screen-lg mx-auto my-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <!-- dynamic cards -->
+            </div>
+            <!-- show all button -->
+            <div id="showAllBtn" class="text-center">
+                <button onclick="handleShowAllBtn()" class="btn btn-error text-white">Show All</button>
+            </div>
+            
+            <!-- individual ai tool modal container -->
+            <div id="modal-container">
                 
             </div>
+                
         </section>
     </main>
     <!-- script file -->
     <script src="index.js"></script>
 </body>
 </html>
+
