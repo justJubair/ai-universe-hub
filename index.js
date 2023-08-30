@@ -110,11 +110,13 @@ const handleSortData = async()=>{
          else if(dateA < dateB) return -1;
          return 0; 
      };
-     const sortedDatesAiTools = aiToolsArray.sort(customSort);
-    //  if(!isShowAll) {
-    //     aiToolsArray = aiToolsArray.slice(0,6);
-    // }
+     let sortedDatesAiTools = aiToolsArray.sort(customSort);
+    //  remove the show all button
+  
+
+    // clear the card container
      cardsContainer.innerHTML = '';
+    //  loop through all the sorted elements
      sortedDatesAiTools.forEach((aiTool,index)=>{
           
         const div = document.createElement('div'),
@@ -126,7 +128,7 @@ const handleSortData = async()=>{
               }
         div.className = 'card bg-base-100 shadow-xl'; 
         div.innerHTML = `
-        <figure><img src=${index === 5 ? 'https://ashik-himel.github.io/ai-universe-hub/images/image_not_available.png' : aiTool.image} alt=""/></figure>
+        <figure><img src=${index === 10 ? 'https://ashik-himel.github.io/ai-universe-hub/images/image_not_available.png' : aiTool.image} alt="Image not found"/></figure>
         <div class="card-body">
                 <h2 class="card-title">Features</h2>
                 <ol class="list-decimal">${featureString}</ol>
