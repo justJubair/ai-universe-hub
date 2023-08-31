@@ -73,21 +73,63 @@ const handleShowAllBtn = ()=>{
     showAllBtn.classList.add('hidden');
 }
 
-// show details modal btn function
+// show details MODAL function
 const handleDetails = async (aiToolId)=>{
     const res = await fetch(`https://openapi.programming-hero.com/api/ai/tool/${aiToolId}`);
     const data = await res.json();
     const modalContainer = document.getElementById('modal-container');
-   
+    const trimData = data.data;
+    console.log(trimData);
+    console.log(trimData.accuracy.score);
+    console.log('hello');
     modalContainer.innerHTML = `
     <div>
         <dialog id="aiToolModal" class="modal">
-            <form method="dialog" class="modal-box">
-                <h3 class="font-bold text-lg">Hello!</h3>
-                <p class="py-4">Press ESC key or click the button below to close</p>
-                <div class="modal-action">
-                    <!-- if there is a button in form, it will close the modal -->
-                    <button class="btn">Close</button>
+            <form method="dialog" class="modal-box w-11/12 max-w-5xl max-h-5xl">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                <div class="flex flex-col-reverse items-center justify-center gap-4 md:flex-row">
+                    <div class="border-2 p-4 w-[400px] border-red-200 bg-red-100 rounded-lg">
+                        <h3 class="text-lg font-semibold p-2">${trimData?.description || 'No data available'}</h3>
+                        <div class="flex justify-center gap-2">
+                            <div class="w-20 p-2 text-xs bg-white text-green-700 font-semibold rounded-lg"><h3 class="text-center"><span>${trimData?.pricing[0]?.price || 'No data available'}</span> ${trimData?.pricing[0]?.plan || 'No data available'}</h3></div>
+
+                            <div class="w-20 p-2 text-xs break-words bg-white text-orange-500 font-semibold rounded-lg"><h3 class="text-center"><span>${trimData?.pricing[1]?.price || 'No data available'}</span> ${trimData?.pricing[1]?.plan || 'No data available'}</h3></div>
+
+                            <div class="w-20 p-2 text-xs break-words bg-white text-red-600 font-semibold rounded-lg"><h3 class="text-center"><span>Contact us</span> ${trimData?.pricing[2]?.plan || 'No data available'}</h3></div>
+                        </div>
+                        <div class="flex items-center justify-around my-4">
+                            <div>
+                                <h3 class="font-bold text-lg">Features</h3>
+                                <ul class="list-disc ml-6 text-sm text-gray-500">
+                                    <li>${trimData?.features[1]?.feature_name || 'No data available'}</li>
+                                    <li>${trimData?.features[2]?.feature_name || 'No data available'}</li>
+                                    <li>${trimData?.features[3]?.feature_name || 'No data available'}</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Integrations</h3>
+                                <ul class="list-disc ml-6 text-sm text-gray-500">
+                                    <li>${trimData?.integrations[0] || 'No data available'}</li>
+                                    <li>${trimData?.integrations[1] || 'No data available'}</li>
+                                    <li>${trimData?.integrations[2] || 'No data available'}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="p-4 border-2 rounded-lg w-[400px]">
+                            <div class="text-right mr-28">
+                                <div class="badge badge-error gap-2 absolute mt-2 text-white">
+                               ${trimData?.accuracy?.score*100}% accuracy
+                                </div>
+                            </div>
+                            <img class="rounded-lg" src="${trimData?.image_link[0] || 'No data available'}" alt="">
+                            <div class="text-center p-1">
+                                <h3 class="text-lg font-bold my-1">${trimData?.input_output_examples[1]?.input || 'No data available'}</h3>
+                                <p>${trimData.input_output_examples[1]?.output || 'No data available'}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </dialog>
